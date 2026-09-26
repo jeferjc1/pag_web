@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi primer sitio Web</title>
+  <!-- Incluye los estilos y recursos comunes del sitio. -->
+  <%- include('Partials/head') %>
+  
+</head>
+
+<body>
+  <!-- Reutiliza la barra de navegación en la página principal. -->
+  <%- include('Partials/navegation') %>
+  <!-- Contenido principal de bienvenida. -->
+   
+   <header class="container bg-light vh-100 d-flex justify-content-center align-items-center" >
+    <div class="d-flex flex-column justify-content-center align-items-center">
+    <!-- Muestra el logotipo y el nombre de la aplicación. -->
+    <img src="/img/new_logo_personal.png" alt="" class="w-25">
+    <h1 class="display-1 my-5 text-uppercase fw-bold text-black">UNAD</h1>
+    <!-- Permite volver a cargar la página de inicio. -->
+    <a href="/" class="btn btn-primary w-25">Inicio</a>
+    </div>
+   </header>
+    <marquee scrollamount="15">
+      <h1>Buenos dias la hora es <%= hora%>
+      </h1>
+    </marquee>
+    
+<!-- Incluye el pie de página compartido. -->
+<%- include('Partials/Footer') %>
+</body>
+
+</html>
+

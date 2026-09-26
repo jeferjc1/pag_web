@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('Partials/head') %>
+
+
+        <title>
+            <%= etiqueta%>
+        </title>
+</head>
+
+<body>
+    <!-- La navegación se muestra solo como parte de la interfaz; el servidor ya protegió esta vista. -->
+    <%- include('Partials/navegation') %>
+    <main class="container vh-100 d-flex flex-column justify-content-center align-items-center">
+
+        <!-- Área privada que confirma la sesión del usuario. -->
+        <div class="card bg-dark text-white text-center">
+                <main class="container mt-5">
+                    <h1>Bienvenido al menu principal</h1>
+                    <!-- El nombre llega desde la sesión validada en el servidor. -->
+                    <p>Has iniciado sesion correctamente, <strong><%= usuario.nombre %></strong></p>
+                    <!-- Solicita al servidor cerrar la sesión y eliminar la cookie. -->
+                    <a href="/logout" class="btn btn-danger mb-3">Cerrar sesion</a>
+
+                </main>
+            </div>
+
+        </main>
+
+
+
+
+
+
+
+
+
+
+        <!-- Incluye el pie de página compartido. -->
+        <%- include('Partials/Footer') %>
+</body>

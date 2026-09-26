@@ -1,0 +1,49 @@
+body{
+    background-color: rgb(179, 81, 81);
+    color:rgb(230, 234, 235)
+}
+body.login{
+    font-family: Arial, Helvetica, sans-serif;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color: rgb(57, 86, 172);
+}
+.login-card{
+    background-color: rgb(42, 95, 95);
+    padding: 30px;
+    border: 12px;
+    box-shadow: 0 4px 10px rgba(rgb(40, 126, 87), green, blue, alpha);
+    width: auto;
+    text-align: center;
+    color: black;
+}
+input.group{
+    margin-bottom: 20px;
+    text-align: left;
+}
+input.grou.input{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgb(230, 234, 235);
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+.button{
+    display: flex;
+    justify-content: space-between;
+    gap:10px;
+    margin-bottom: 20px;
+}
+.error{
+    color: red;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+body.registro{
+    font-family: Arial, Helvetica, sans-serif;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color: #2c3e50;
+}

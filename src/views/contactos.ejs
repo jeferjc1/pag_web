@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <%- include('Partials/head') %>
+
+
+    <title>
+      <%= etiqueta%>
+    </title>
+</head>
+
+<body>
+  <%- include('Partials/navegation') %>
+    <!--creacion de formulario -->
+    <div class="container vh-100 d-flex justify-content-center align-items-center ">
+      <div
+        class="mx-auto bg-dark-subtle rounded text-dark d-flex flex-column justify-content-center align-items-center  w-75 mt-auto mb-auto">
+
+        <h2>Contactanos</h2>
+
+        <form  class="w-100 p-4">
+          <div class="mb-3">
+            <label for="nombre">Nombre Completo</label>
+            <input type="text"  placeholder="Ingrese su nombre completo." class="form-control " required>
+          </div>
+          <div class="mb-3">
+            <label for="corre" >Correo electronico</label>
+            <input type="text"  placeholder="Ingrese su correo electronico." class="form-control " required>
+          </div>
+          <div class="mb-3">
+            <label for="telefono">Telefono "Opcional"</label>
+            <input type="text"  placeholder="Ingrese su numero de telefono." class="form-control " >
+          </div>
+          <div for="ciudad" class="mb-3">
+            <label >Ciudad</label>
+            <select  class="form-select" required>
+              <option value="bogota">Bogota</option>
+              <option value="cali">Cali</option>
+              <option value="medellin">Medellin</option>
+              <option value="barranquilla">B/quilla</option>
+              <option value="santa marta">S/marta</option>
+            </select>
+          </div>
+          <div for="asunto"   class="mb-3">
+            <label >Asunto</label>
+            <input type="text"  placeholder="Descripcion del asunto" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="mensajeprint" >Mensaje</label>
+            <textarea name="mensaje" rows="5"  class="form-control"  placeholder="Escriba su mensaje" required></textarea>
+          </div>
+          
+          <div class="d-flex gap-3 justify-content-center p-3 ">
+            <button type="submit" class="btn btn-success w-50">Enviar</button>
+            <button type="reset" class="btn btn-secondary w-50">Limpiar</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+    <%- include('Partials/Footer') %>
+</body>
+
+</html>

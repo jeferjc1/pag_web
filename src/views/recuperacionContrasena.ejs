@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    <%= etiqueta%>
+  </title>
+  <%- include('Partials/head') %>
+
+</head>
+
+<body class="login">
+
+
+  <!-- Incluye la navegación común de todas las vistas. -->
+  <%- include('Partials/navegation') %>
+    <main class="container vh-100 d-flex flex-column justify-content-center align-items-center">
+
+      <!-- Encabezado de la vista de acceso. -->
+      <div id="formRecCon" class="login-card p-4 bg-light rounded shadow-lg ">
+        <section class="text-center mb-4">
+          <h1 class="h3 text-dark">Recuperar contraseña</h1>
+        </section>
+        <!-- Tarjeta que contiene el formulario de autenticación. -->
+        <div class="login-card1 p-4 bg-white rounded shadow-lg  " style="width: 100%; width: 400px ;">
+          <!-- Envía las credenciales al servidor para validarlas. -->
+          <form class="recContrasena">
+            <% if (typeof mensaje !== 'undefined' && mensaje) { %>
+  <!-- Muestra el mensaje de error devuelto por el servidor. -->
+  <div class="error"><%= mensaje %></div>
+<% } %>
+
+            <div class="mb-3">
+                <p>Ingrese el correo con el que se registro:</p>
+              <input type="text" class="form-control " id="correoRecuperacion" name="correoRecuperacion" placeholder="Correo electrónico" required>
+            </div>
+
+            <!-- Agrupa las acciones de registro, ingreso y limpieza del formulario. -->
+            <div class="d-flex flex-column">
+              
+              <button type="submit" class="btn btn-info w-100 rounded-pill mt-3" >Enviar</button>
+        
+            </div>
+          </form>
+          <!-- Enlaces reservados para las opciones de recuperación de acceso. -->
+          <div class="links text-center mt-3 d-flex flex-column gap-1">
+            <a href="/recuperacionUsuario">Recuperar mi usuario</a>
+            <a href="/login">Volver al login</a>
+          </div>
+        </div>
+        </div>
+    </main>
+
+
+    <!-- Incluye el pie de página compartido. -->
+    <%- include('Partials/Footer') %>
+</body>
+<script>
+   
+  const formulario = document.getElementById('formRecCon')
+
+  // Escucha el evento submit
+  formulario.addEventListener('submit', function(event) {
+    event.preventDefault() 
+    alert('Te hemos enviado un correo para recuperar tu contraseña. Por favor revisa tu bandeja de entrada.')
+  })
+</script>
+</html>

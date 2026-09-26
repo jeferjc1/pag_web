@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Informe de cambios - Autenticación</title>
+<style>
+body{font-family:Arial,sans-serif;color:#222;line-height:1.45;margin:42px}
+h1{color:#1f4e79;border-bottom:2px solid #1f4e79;padding-bottom:8px}
+h2{color:#2f75b5;margin-top:26px}
+table{border-collapse:collapse;width:100%;margin:12px 0 20px}
+th,td{border:1px solid #aaa;padding:8px;text-align:left;vertical-align:top}
+th{background:#d9eaf7}
+code{background:#f1f1f1;padding:2px 4px}
+.cover{text-align:center;margin:90px 0 110px}.cover h1{border:0;font-size:30px}
+.note{background:#fff4ce;border-left:4px solid #e6b800;padding:10px}
+</style>
+</head>
+<body>
+<section class="cover">
+<h1>Informe de cambios del sistema de autenticación</h1>
+<p><strong>Proyecto:</strong> Universidad - Node.js</p>
+<p><strong>Fecha:</strong> 7 de septiembre de 2026</p>
+<p>Registro de usuarios, inicio de sesión y protección del menú</p>
+</section>
+
+<h1>1. Objetivo</h1>
+<p>Integrar el formulario de registro con el backend para guardar los datos del usuario, permitir que los usuarios registrados inicien sesión con su correo y contraseña, mostrar su nombre en el menú y bloquear el acceso al menú cuando no exista una sesión válida, conservando los estilos y la estructura visual existente.</p>
+
+<h1>2. Estado inicial</h1>
+<ul>
+<li>El registro solo mostraba los datos en consola y no los persistía.</li>
+<li>El login validaba únicamente el usuario fijo <code>admin</code> con contraseña <code>1234</code>.</li>
+<li>Había código JavaScript que guardaba credenciales en <code>localStorage</code>.</li>
+<li>La vista del menú intentaba protegerse desde el navegador y no desde el servidor.</li>
+<li>Existía una ruta duplicada de <code>/registro</code> que podía responder antes que la vista real.</li>
+</ul>
+
+<h1>3. Cambios realizados</h1>
+<h2>3.1 Persistencia de usuarios</h2>
+<p>Se creó <code>data/usuarios.json</code> como almacenamiento local del proyecto. El servidor lee los usuarios existentes y guarda los nuevos registros en formato JSON.</p>
+<p>Se almacenan los datos solicitados: tipo y número de documento, nombres, apellidos, fecha de nacimiento, correo y contraseña protegida.</p>
+
+<h2>3.2 Registro</h2>
+<p>La ruta <code>POST /registro</code> ahora:</p>
+<ol>
+<li>Recibe todos los campos del formulario de tres pasos.</li>
+<li>Normaliza el correo a minúsculas y elimina espacios externos.</li>
+<li>Verifica que el correo y su confirmación coincidan.</li>
+<li>Evita duplicar correo o número de documento.</li>
+<li>Genera un nombre visible para el menú.</li>
+<li>Protege la contraseña mediante <code>scrypt</code> y una sal aleatoria.</li>
+<li>Guarda el usuario y redirige al login.</li>
+</ol>
+
+<h2>3.3 Inicio de sesión</h2>
+<p>La ruta <code>POST /login</code> busca el correo registrado, compara la contraseña con el hash almacenado y, si coincide, crea una sesión en el servidor. La sesión se identifica mediante una cookie HTTPOnly llamada <code>sessionId</code> y redirige a <code>/menu</code>.</p>
+
+<h2>3.4 Protección del menú</h2>
+<p>La ruta <code>GET /menu</code> verifica la sesión antes de renderizar la vista. Si no existe una sesión válida, redirige a <code>/login</code>. Cuando existe sesión, envía a la vista el nombre y correo del usuario.</p>
+
+<h2>3.5 Cierre de sesión</h2>
+<p>Se agregó <code>GET /logout</code>, que elimina la sesión del servidor, invalida la cookie y devuelve al usuario al login.</p>
+
+<h2>3.6 Vistas y estilos</h2>
+<p>Se conservaron los estilos actuales. Se eliminó el guardado de credenciales en <code>localStorage</code>, se quitó el JavaScript duplicado del login y el menú ahora muestra el nombre recibido desde el servidor.</p>
+
+<h1>4. Archivos modificados</h1>
+<table><tr><th>Archivo</th><th>Cambio</th></tr>
+<tr><td><code>src/routes/autenticacion.js</code></td><td>Registro, login, sesiones, cierre de sesión, persistencia y protección del menú.</td></tr>
+<tr><td><code>src/routes/index.js</code></td><td>Se eliminaron rutas duplicadas y se conservaron las rutas generales.</td></tr>
+<tr><td><code>src/views/registro.ejs</code></td><td>El formulario se envía al backend sin guardar credenciales en el navegador.</td></tr>
+<tr><td><code>src/views/login.ejs</code></td><td>El formulario usa la validación real del servidor.</td></tr>
+<tr><td><code>src/views/menu.ejs</code></td><td>Muestra el nombre del usuario y usa el enlace de cierre de sesión.</td></tr>
+<tr><td><code>data/usuarios.json</code></td><td>Nuevo archivo de persistencia de usuarios.</td></tr></table>
+
+<h1>5. Seguridad aplicada</h1>
+<ul><li>Las contraseñas no se guardan en texto plano.</li><li>La cookie de sesión usa <code>HttpOnly</code> y <code>SameSite=Lax</code>.</li><li>El acceso al menú se valida en el servidor.</li><li>Se controlan duplicados de correo y documento.</li></ul>
+<div class="note"><strong>Nota:</strong> El archivo JSON es adecuado para este proyecto académico/local. Para producción se recomienda una base de datos y un almacén de sesiones persistente.</div>
+
+<h1>6. Pruebas realizadas</h1>
+<table><tr><th>Prueba</th><th>Resultado</th></tr>
+<tr><td>Acceso a <code>/menu</code> sin login</td><td>Redirige a <code>/login</code>.</td></tr>
+<tr><td>Registro de usuario</td><td>Guarda el usuario en <code>data/usuarios.json</code>.</td></tr>
+<tr><td>Login con usuario registrado</td><td>Crea sesión y redirige a <code>/menu</code>.</td></tr>
+<tr><td>Nombre en el menú</td><td>Se muestra el nombre registrado.</td></tr>
+<tr><td>Contraseña incorrecta</td><td>Muestra mensaje de credenciales incorrectas.</td></tr></table>
+
+<h1>7. Uso</h1>
+<ol><li>Ejecutar <code>npm.cmd run dev</code>.</li><li>Abrir <code>http://localhost:5000/registro</code>.</li><li>Completar el formulario y finalizar el registro.</li><li>Ingresar al login con el correo y contraseña registrados.</li><li>El sistema llevará al menú y mostrará el nombre del usuario.</li></ol>
+</body>
+</html>
