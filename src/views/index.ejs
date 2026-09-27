@@ -6,12 +6,66 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mi primer sitio Web</title>
   <!-- Incluye los estilos y recursos comunes del sitio. -->
-  <%- include('Partials/head') %>
+  
   
 </head>
 
 <body>
+
   <!-- Reutiliza la barra de navegación en la página principal. -->
+ <!-- Barra de navegación compartida por las vistas del sitio. -->
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+   <!-- Contenedor que adapta el menú a distintos tamaños de pantalla. -->
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Mi primer sitio Web</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+       <!-- Alinea los enlaces del menú hacia la derecha. -->
+      <ul class="navbar-nav ms-auto">
+        
+        <li class="nav-item">
+          
+           <!-- Enlace a la página principal. -->
+          <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+        </li>
+        <li class="nav-item">
+           <!-- Enlace para iniciar sesión. -->
+          <a class="nav-link active" aria-current="page" href="/login">Inisio de sesion</a>
+          <li class="nav-item">
+          <a class="nav-link" href="/menu">Menu Empresarial</a>
+        </li>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contactos">Contactos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/sobre_nosotros">Sobre nosotros</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown link
+          </a>
+          <!-- Menú desplegable con accesos rápidos a las vistas. -->
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/">Inicio</a></li>
+            <li><a class="dropdown-item" href="/contactos">Contactos</a></li>
+            <li><a class="dropdown-item" href="/sobre_nosotros">Sobre nosotros</a></li>
+            <li><a class="dropdown-item" href="/menu">Menu Empresarial</a></li>
+            <li><a class="dropdown-item" href="/login">Inicio de sesion</a></li>
+            <li><a class="dropdown-item" href="/registro">Crear usuario</a></li>
+            <li><a class="dropdown-item btn btn-success text-dark my-1 fw-bold" href="/">Salir</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<body>
+  <!-- Carga los componentes interactivos de Bootstrap. -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
 
 
   <%- include('Partials/navegation') %>
